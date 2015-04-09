@@ -17,9 +17,14 @@ my $filedetails = File::Details->new( $testfile );
 
 # default now is md5sum
 
-is( $filedetails->hash, "5dd39cab1c53c2c77cd352983f9641e1", "md5sum" );
+SKIP: {
+    eval { require Digest::MD5 };
 
+    skip "Digest::MD5 not available", 1 if $@;
 
+    is( $filedetails->hash, "5dd39cab1c53c2c77cd352983f9641e1", "md5sum" );
+
+}
 done_testing;
 
 __END__
