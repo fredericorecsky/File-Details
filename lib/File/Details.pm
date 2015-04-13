@@ -14,7 +14,7 @@ my @details = qw/abspath filename hashtype/;
 
 my @hashtypes = qw/MD5/;
 
-File::Details->mk_accessors( @stats );
+File::Details->mk_accessors(( @stats, @details ) );
 
 sub new{
     my ( $class, $filename, $options ) = @_;
@@ -46,7 +46,7 @@ sub _read_attribs {
 sub hash {
     my ( $self ) = @_;
 
-    return $self->{ hash } if exists %$self->{ hash };
+    return $self->{ hash } if exists $self->{ hash };
 
     my $type = $self->{ hashtype } || "MD5";
 
